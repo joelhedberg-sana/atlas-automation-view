@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					hover: 'hsl(var(--primary-hover))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -51,6 +52,18 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				status: {
+					connected: 'hsl(var(--status-connected))',
+					'connected-foreground': 'hsl(var(--status-connected-foreground))',
+					disconnected: 'hsl(var(--status-disconnected))',
+					'disconnected-foreground': 'hsl(var(--status-disconnected-foreground))',
+					duplicate: 'hsl(var(--status-duplicate))',
+					'duplicate-foreground': 'hsl(var(--status-duplicate-foreground))',
+					orphan: 'hsl(var(--status-orphan))',
+					'orphan-foreground': 'hsl(var(--status-orphan-foreground))',
+					normal: 'hsl(var(--status-normal))',
+					'normal-foreground': 'hsl(var(--status-normal-foreground))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
