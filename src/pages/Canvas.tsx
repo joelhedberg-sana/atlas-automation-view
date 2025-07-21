@@ -87,10 +87,10 @@ const Canvas = () => {
   }, [setNodes, setEdges]);
 
   const nodeColor = useCallback((node: Node) => {
-    const flow = node.data;
+    const flow = node.data as unknown as EnhancedFlow;
     if (flow?.duplicateOf) return '#fbbf24'; // amber
     if (flow?.orphan) return '#ef4444'; // red
-    if (flow?.successRate < 90) return '#f97316'; // orange
+    if (typeof flow?.successRate === 'number' && flow.successRate < 90) return '#f97316'; // orange
     return '#64748b'; // slate
   }, []);
 
