@@ -12,7 +12,7 @@ export function Navigation() {
     { path: "/", label: "Home", icon: Home },
     { path: "/dashboard", label: "Dashboard", icon: BarChart3 },
     { path: "/canvas", label: "Canvas", icon: Network },
-    { path: "/issues", label: "Issues", icon: AlertTriangle },
+    { path: "/analytics", label: "Analytics", icon: BarChart3 },
   ];
 
   return (

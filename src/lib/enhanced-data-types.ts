@@ -24,6 +24,7 @@ export interface EnhancedFlow {
   summary: string;
   duplicateOf: string | null;
   orphan: boolean;
+  status: 'active' | 'disabled' | 'error';
   // Enhanced fields for production
   trigger: {
     type: 'webhook' | 'schedule' | 'manual' | 'event';
