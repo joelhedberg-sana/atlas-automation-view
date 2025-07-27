@@ -1,1 +1,16 @@
 project_id = "nzorvmqbqrfftonufqsp"
+
+[functions.hubspot-integration]
+verify_jwt = false
+
+[functions.zapier-integration]
+verify_jwt = false
+
+[functions.lemlist-integration]
+verify_jwt = false
+
+[functions.ai-flow-analyzer]
+verify_jwt = false
+
+[functions.flow-search]
+verify_jwt = false
