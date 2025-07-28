@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -18,25 +17,12 @@ import {
   AlertCircle
 } from "lucide-react";
 import { AutomationAnalytics, BusinessImpactCalculator } from "@/lib/analytics-engine";
-import { EnhancedFlow } from "@/lib/enhanced-data-types";
-import { enhancedMockFlows } from "@/lib/enhanced-mock-data";
+import { useFlows } from "@/hooks/useFlows";
 
 const AdvancedAnalyticsDashboard = () => {
-  const [flows, setFlows] = useState<EnhancedFlow[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { flows, loading } = useFlows();
 
-  useEffect(() => {
-    // Simulate API call
-    const loadData = async () => {
-      setIsLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setFlows(enhancedMockFlows);
-      setIsLoading(false);
-    };
-    loadData();
-  }, []);
-
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

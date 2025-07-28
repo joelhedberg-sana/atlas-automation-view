@@ -1,46 +1,19 @@
 
-import { useState, useEffect } from "react";
 import { EnhancedConnectorCard } from "@/components/EnhancedConnectorCard";
 import { EnhancedFlowTable } from "@/components/EnhancedFlowTable";
 import { MetricsDashboard } from "@/components/MetricsDashboard";
 import { Navigation } from "@/components/Navigation";
-import { EnhancedConnector, EnhancedFlow, FlowMetrics } from "@/lib/enhanced-data-types";
-import { enhancedMockConnectors, enhancedMockFlows, mockFlowMetrics } from "@/lib/enhanced-mock-data";
 import { Skeleton } from "@/components/ui/skeleton";
-import { toast } from "@/hooks/use-toast";
+import { useConnectors } from "@/hooks/useConnectors";
+import { useFlows } from "@/hooks/useFlows";
+import { useFlowMetrics } from "@/hooks/useFlowMetrics";
 
 const Dashboard = () => {
-  const [connectors, setConnectors] = useState<EnhancedConnector[]>([]);
-  const [flows, setFlows] = useState<EnhancedFlow[]>([]);
-  const [metrics, setMetrics] = useState<FlowMetrics | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { connectors, loading: connectorsLoading } = useConnectors();
+  const { flows, loading: flowsLoading } = useFlows();
+  const { metrics, loading: metricsLoading } = useFlowMetrics();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        
-        // Simulate API delay for demo
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
-        // Use enhanced mock data
-        setConnectors(enhancedMockConnectors);
-        setFlows(enhancedMockFlows);
-        setMetrics(mockFlowMetrics);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        toast({
-          title: "Error",
-          description: "Failed to load automation data. Please try again.",
-          variant: "destructive",
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const loading = connectorsLoading || flowsLoading || metricsLoading;
 
   if (loading) {
     return (
