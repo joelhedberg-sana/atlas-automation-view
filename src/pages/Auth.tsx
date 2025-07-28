@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { PasswordReset } from '@/components/auth/PasswordReset';
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,7 @@ export default function Auth() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [organizationName, setOrganizationName] = useState('');
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
@@ -82,7 +84,15 @@ export default function Auth() {
       if (error) throw error;
 
       if (data.user) {
-        const redirect = searchParams.get('redirect') || '/dashboard';
+        // Check if user needs onboarding
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('first_name, last_name')
+          .eq('user_id', data.user.id)
+          .single();
+
+        const redirect = searchParams.get('redirect') || 
+          (profile?.first_name ? '/dashboard' : '/onboarding');
         navigate(redirect);
       }
     } catch (error: any) {
@@ -95,6 +105,14 @@ export default function Auth() {
       setIsLoading(false);
     }
   };
+
+  if (showPasswordReset) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4">
+        <PasswordReset onBack={() => setShowPasswordReset(false)} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4">
@@ -144,6 +162,15 @@ export default function Auth() {
                 >
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Sign In
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  variant="ghost" 
+                  className="w-full text-sm" 
+                  onClick={() => setShowPasswordReset(true)}
+                >
+                  Forgot your password?
                 </Button>
               </form>
             </TabsContent>

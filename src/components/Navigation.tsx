@@ -1,12 +1,24 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Network, AlertTriangle, Home } from "lucide-react";
+import { BarChart3, Network, AlertTriangle, Home, LogOut, User } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   
   const isActive = (path: string) => location.pathname === path;
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const navItems = [
     { path: "/", label: "Home", icon: Home },
@@ -48,9 +60,27 @@ export function Navigation() {
             </div>
           </div>
           
-          <Badge variant="outline" className="hidden sm:flex">
-            v1.0.0
-          </Badge>
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm">
+                  <User className="h-4 w-4" />
+                  <span className="hidden sm:inline ml-2">{user.email}</span>
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4" />
+                  <span className="hidden sm:inline ml-2">Sign Out</span>
+                </Button>
+              </div>
+            ) : (
+              <Button asChild variant="default" size="sm">
+                <Link to="/auth">Sign In</Link>
+              </Button>
+            )}
+            <Badge variant="outline" className="hidden sm:flex">
+              v1.0.0
+            </Badge>
+          </div>
         </div>
       </div>
     </nav>
