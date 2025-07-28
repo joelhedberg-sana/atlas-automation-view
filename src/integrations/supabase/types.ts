@@ -400,7 +400,7 @@ export type Database = {
       flow_status: "active" | "disabled" | "error"
       sync_frequency: "realtime" | "hourly" | "daily" | "weekly"
       trigger_type: "webhook" | "schedule" | "manual" | "event"
-      user_role: "admin" | "editor" | "viewer"
+      user_role: "admin" | "editor" | "viewer" | "owner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -540,7 +540,7 @@ export const Constants = {
       flow_status: ["active", "disabled", "error"],
       sync_frequency: ["realtime", "hourly", "daily", "weekly"],
       trigger_type: ["webhook", "schedule", "manual", "event"],
-      user_role: ["admin", "editor", "viewer"],
+      user_role: ["admin", "editor", "viewer", "owner"],
     },
   },
 } as const
