@@ -19,38 +19,78 @@ export type Database = {
           connector_id: string
           created_at: string
           encrypted_value: string
+          encryption_iv: string
           expires_at: string | null
           id: string
+          is_active: boolean | null
+          key_hash: string
           key_name: string
+          last_used: string | null
           updated_at: string
+          usage_count: number | null
         }
         Insert: {
           connector_id: string
           created_at?: string
           encrypted_value: string
+          encryption_iv: string
           expires_at?: string | null
           id?: string
+          is_active?: boolean | null
+          key_hash: string
           key_name: string
+          last_used?: string | null
           updated_at?: string
+          usage_count?: number | null
         }
         Update: {
           connector_id?: string
           created_at?: string
           encrypted_value?: string
+          encryption_iv?: string
           expires_at?: string | null
           id?: string
+          is_active?: boolean | null
+          key_hash?: string
           key_name?: string
+          last_used?: string | null
           updated_at?: string
+          usage_count?: number | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "api_keys_connector_id_fkey"
-            columns: ["connector_id"]
-            isOneToOne: false
-            referencedRelation: "connectors"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
+      }
+      audit_logs: {
+        Row: {
+          created_at: string
+          event_details: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_details?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_details?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       connectors: {
         Row: {
@@ -116,6 +156,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      data_retention_policies: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          last_cleanup: string | null
+          retention_days: number
+          table_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_cleanup?: string | null
+          retention_days: number
+          table_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_cleanup?: string | null
+          retention_days?: number
+          table_name?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       execution_logs: {
         Row: {
@@ -307,6 +377,45 @@ export type Database = {
           },
         ]
       }
+      gdpr_requests: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string | null
+          id: string
+          processed_at: string | null
+          request_type: string
+          requested_data: Json | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at?: string | null
+          id?: string
+          processed_at?: string | null
+          request_type: string
+          requested_data?: Json | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string | null
+          id?: string
+          processed_at?: string | null
+          request_type?: string
+          requested_data?: Json | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       organizations: {
         Row: {
           created_at: string
@@ -377,6 +486,81 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      security_events: {
+        Row: {
+          attempt_count: number | null
+          created_at: string
+          email: string | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          locked_until: string | null
+          updated_at: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          attempt_count?: number | null
+          created_at?: string
+          email?: string | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          locked_until?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          attempt_count?: number | null
+          created_at?: string
+          email?: string | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          locked_until?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          ip_address: unknown | null
+          is_active: boolean | null
+          last_activity: string
+          session_token: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string
+          session_token: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string
+          session_token?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
     }
     Views: {
