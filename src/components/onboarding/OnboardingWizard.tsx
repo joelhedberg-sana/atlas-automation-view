@@ -7,6 +7,7 @@ import { WelcomeStep } from './steps/WelcomeStep';
 import { ProfileSetupStep } from './steps/ProfileSetupStep';
 import { PlatformConnectionStep } from './steps/PlatformConnectionStep';
 import { OnboardingCompleteStep } from './steps/OnboardingCompleteStep';
+import { DemoDataStep } from './DemoDataStep';
 
 export interface OnboardingData {
   profile: {
@@ -26,6 +27,7 @@ const STEPS = [
   { id: 'welcome', title: 'Welcome', description: 'Welcome to Automation Atlas' },
   { id: 'profile', title: 'Profile Setup', description: 'Set up your profile' },
   { id: 'connections', title: 'Connect Platforms', description: 'Connect your automation tools' },
+  { id: 'demo', title: 'Preview', description: 'See your future dashboard' },
   { id: 'complete', title: 'Complete', description: 'You\'re all set!' },
 ];
 
@@ -90,6 +92,8 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           />
         );
       case 3:
+        return <DemoDataStep onComplete={handleNext} />;
+      case 4:
         return (
           <OnboardingCompleteStep 
             data={onboardingData} 
@@ -153,13 +157,15 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
             {renderStep()}
             
             {/* Navigation */}
-            {currentStep > 0 && currentStep < STEPS.length - 1 && (
+            {currentStep > 0 && currentStep < STEPS.length - 2 && (
               <div className="flex justify-between mt-6">
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back
                 </Button>
-                <div /> {/* Spacer */}
+                <Button variant="ghost" onClick={() => setCurrentStep(STEPS.length - 1)}>
+                  Skip to end
+                </Button>
               </div>
             )}
           </CardContent>
