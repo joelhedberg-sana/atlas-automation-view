@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Network, AlertTriangle, Home, LogOut, User } from "lucide-react";
+import { BarChart3, Network, AlertTriangle, Home, LogOut, User, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 export function Navigation() {
@@ -25,6 +25,7 @@ export function Navigation() {
     { path: "/dashboard", label: "Dashboard", icon: BarChart3 },
     { path: "/canvas", label: "Canvas", icon: Network },
     { path: "/analytics", label: "Analytics", icon: BarChart3 },
+    { path: "/security", label: "Security", icon: Shield },
   ];
 
   return (

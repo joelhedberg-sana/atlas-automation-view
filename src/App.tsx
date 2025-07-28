@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Canvas from "./pages/Canvas";
 import Issues from "./pages/Issues";
 import Analytics from "./pages/Analytics";
+import Security from "./pages/Security";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
@@ -49,6 +50,11 @@ const App = () => (
             <Route path="/analytics" element={
               <ProtectedRoute>
                 <Analytics />
+              </ProtectedRoute>
+            } />
+            <Route path="/security" element={
+              <ProtectedRoute>
+                <Security />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
